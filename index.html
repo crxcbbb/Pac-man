@@ -626,7 +626,10 @@
                 "move"          : move,
                 "newLevel"      : newLevel,
                 "reset"         : reset,
-                "resetPosition" : resetPosition
+                "resetPosition" : resetPosition,
+                "handleTouchStart" : handleTouchStart,
+                "handleTouchMove"  : handleTouchMove,
+                "handleTouchEnd"   : handleTouchEnd
             };
         };
 
@@ -1186,6 +1189,11 @@
                 
                 document.addEventListener("keydown", keyDown, true);
                 document.addEventListener("keypress", keyPress, true); 
+                
+                // Add touch event listeners for mobile
+                canvas.addEventListener("touchstart", user.handleTouchStart, false);
+                canvas.addEventListener("touchmove", user.handleTouchMove, false);
+                canvas.addEventListener("touchend", user.handleTouchEnd, false);
                 
                 timer = window.setInterval(mainLoop, 1000 / Pacman.FPS);
             };
