@@ -1,64 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Megalabs</title>
-	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-	<style type="text/css">
-		body {
-			background-color: black;
-		}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Megalabs</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            font-family: 'Pixelify Sans', sans-serif;
+            color: rgb(85, 219, 85);
+            text-align: center;
+        }
 
-		#pacman {
-			height: 470px;
-			width: 382px;
-			border-radius: 5px;
-			margin: 20px auto;
-		}
+        #pacman {
+            display: block;
+            margin: 20px auto;
+            position: relative;
+            max-width: 100%;
+            height: auto;
+        }
 
-		#shim {
-			font-family: 'Pixelify Sans', sans-serif;
-			position: absolute;
-			visibility: hidden
-		}
+        h1 {
+            color: rgb(10, 177, 10);
+        }
 
-		h1 {
-			font-family: 'Pixelify Sans', sans-serif;
-			text-align: center;
-			color: rgb(10, 177, 10);
-		}
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
-		body {
-			width: 342px;
-			margin: 0px auto;
-			font-family: sans-serif;
-		}
+        .button {
+            background-color: rgb(10, 177, 10);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-		p {
-			text-decoration: none;
-			color: rgb(85, 219, 85);
-		}
-	</style>
+        .button:active {
+            background-color: rgb(5, 130, 5);
+        }
+    </style>
 </head>
 <body>
-	<div id="shim">shim for font face</div>
-	<h1>MEGALABS</h1>
-	<p style="text-align:center;">Prueba para NewsLetter</p>
-	<div id="pacman"></div>
+    <h1>MEGALABS</h1>
+    <p>Prueba para NewsLetter</p>
+    <div id="pacman"></div>
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script type="text/javascript">
+    <div class="controls">
+        <button class="button" id="left">Left</button>
+        <button class="button" id="up">Up</button>
+        <button class="button" id="down">Down</button>
+        <button class="button" id="right">Right</button>
+    </div>
 
-/*jslint browser: true, undef: true, eqeqeq: true, nomen: true, white: true */
-/*global window: false, document: false */
-
-/*
- * fix looped audio
- * add fruits + levels
- * fix what happens when a ghost is eaten (should go back to base)
- * do proper ghost mechanics (blinky/wimpy etc)
- */
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
 
 var NONE        = 4,
     UP          = 3,
@@ -1331,7 +1335,42 @@ $(function(){
       "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
   }
 });
+        // Add touch controls for mobile
+        document.getElementById('left').addEventListener('click', function() {
+            // Simulate left arrow key press
+            var event = new KeyboardEvent('keydown', { keyCode: KEY.ARROW_LEFT });
+            document.dispatchEvent(event);
+        });
 
+        document.getElementById('up').addEventListener('click', function() {
+            // Simulate up arrow key press
+            var event = new KeyboardEvent('keydown', { keyCode: KEY.ARROW_UP });
+            document.dispatchEvent(event);
+        });
+
+        document.getElementById('down').addEventListener('click', function() {
+            // Simulate down arrow key press
+            var event = new KeyboardEvent('keydown', { keyCode: KEY.ARROW_DOWN });
+            document.dispatchEvent(event);
+        });
+
+        document.getElementById('right').addEventListener('click', function() {
+            // Simulate right arrow key press
+            var event = new KeyboardEvent('keydown', { keyCode: KEY.ARROW_RIGHT });
+            document.dispatchEvent(event);
+        });
+
+        $(function() {
+            var el = document.getElementById("pacman");
+
+            if (Modernizr.canvas && Modernizr.localstorage && 
+                Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+                window.setTimeout(function () { PACMAN.init(el, "https://raw.githubusercontent.com/daleharvey/pacman/master/"); }, 0);
+            } else { 
+                el.innerHTML = "Sorry, needs a decent browser<br /><small>" + 
+                "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+            }
+        });
 
 	</script>
 </body>
